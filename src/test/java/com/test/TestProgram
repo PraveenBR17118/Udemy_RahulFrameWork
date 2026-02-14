@@ -1,0 +1,2 @@
+1. Xpath for Search bar = //input[@id='twotabsearchtextbox']
+2. Xpath for get mobile name  = //div[@class='a-section a-spacing-small a-spacing-top-small']/descendant::h2/child::span
