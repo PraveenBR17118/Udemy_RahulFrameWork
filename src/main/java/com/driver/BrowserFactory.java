@@ -14,8 +14,12 @@ public class BrowserFactory {
 
 		if (browserName.equalsIgnoreCase("Chrome"))
 		{
-			ChromeOptions options = new ChromeOptions();
-			options.addArguments("--headless");
+			
+			
+			  ChromeOptions options = new ChromeOptions();
+			  options.addArguments("--headless");
+			 
+			 
 			driver = new ChromeDriver(options);
 			driver.manage().window().maximize();
 		}
