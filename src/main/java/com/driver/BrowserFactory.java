@@ -7,19 +7,18 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class BrowserFactory {
 
-	public static WebDriver createBrowserInstance(String browserName) 
-	{
+	public static WebDriver createBrowserInstance(String browserName) {
 
 		WebDriver driver = null;
 
-		if (browserName.equalsIgnoreCase("Chrome"))
+		if (browserName.equalsIgnoreCase("Chrome")) 
 		{
-			
-			
-			  ChromeOptions options = new ChromeOptions();
-			  options.addArguments("--headless");
-			 
-			 
+
+			ChromeOptions options = new ChromeOptions();
+			options.addArguments("--headless=new"); // This runs the browser in the background
+			options.addArguments("--no-sandbox");
+			options.addArguments("--disable-dev-shm-usage");
+
 			driver = new ChromeDriver(options);
 			driver.manage().window().maximize();
 		}
