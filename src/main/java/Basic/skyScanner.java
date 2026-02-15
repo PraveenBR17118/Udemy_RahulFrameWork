@@ -8,7 +8,8 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-@Test(invocationCount =0)
+
+@Test(invocationCount = 0)
 public class skyScanner {
 
 	public static void main(String[] args) throws InterruptedException

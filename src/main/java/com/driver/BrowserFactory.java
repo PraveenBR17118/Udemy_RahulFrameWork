@@ -2,6 +2,7 @@ package com.driver;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class BrowserFactory {
@@ -13,7 +14,13 @@ public class BrowserFactory {
 
 		if (browserName.equalsIgnoreCase("Chrome"))
 		{
-			driver = new ChromeDriver();
+			
+			
+			  ChromeOptions options = new ChromeOptions();
+			  options.addArguments("--headless");
+			 
+			 
+			driver = new ChromeDriver(options);
 			driver.manage().window().maximize();
 		}
 
