@@ -14,12 +14,14 @@ public class BrowserFactory {
 		if (browserName.equalsIgnoreCase("Chrome")) 
 		{
 
-			ChromeOptions options = new ChromeOptions();
-			options.addArguments("--headless=new"); // This runs the browser in the background
-			options.addArguments("--no-sandbox");
-			options.addArguments("--disable-dev-shm-usage");
+			/*
+			 * ChromeOptions options = new ChromeOptions();
+			 * options.addArguments("--headless=new"); // This runs the browser in the
+			 * background options.addArguments("--no-sandbox");
+			 * options.addArguments("--disable-dev-shm-usage");
+			 */
 
-			driver = new ChromeDriver(options);
+			driver = new ChromeDriver();
 			driver.manage().window().maximize();
 		}
 
