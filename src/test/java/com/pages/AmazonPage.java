@@ -9,6 +9,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import com.base.BasePage;
 import com.driver.DriverFactory;
+import com.report.ExtentFactory;
 
 public class AmazonPage  extends BasePage
 { 
@@ -50,14 +51,22 @@ public class AmazonPage  extends BasePage
 		
 	}
 	
+	@SuppressWarnings("static-access")
 	public void returnName() 
 	{
 		//List<WebElement> mob = DriverFactory.getInstance().getDriver().findElements(By.xpath("//div[@class='a-section a-spacing-small a-spacing-top-small']/descendant::h2/child::span[contains(text(),'Samsung')]"));
-		//List<WebElement> mob = DriverFactory.getInstance().getDriver().findElements(By.xpath("//div[@class='a-section a-spacing-small a-spacing-top-small']/descendant::h2/child::span[contains(text(),'Samsung')]"));
-		List<WebElement> mob = DriverFactory.getInstance().getDriver().findElements(By.xpath("//div[@class='a-section a-spacing-small a-spacing-top-small']/descendant::h2/child::span[contains(text(),'Samsung')]//ancestor::div[contains(@class,'a-section a-spacing-none')]//following-sibling::div[@class='puisg-row puis-desktop-list-row']//preceding-sibling::span[@class='a-price-symbol']/following-sibling::span"));
-		for(int i =0 ;i< 6;i++) 
+		List<WebElement> mob = DriverFactory.getInstance().getDriver().findElements(By.xpath("//div[@class='a-section a-spacing-small a-spacing-top-small']/descendant::h2/child::span[contains(text(),'Samsung')]"));
+		//List<WebElement> mob = DriverFactory.getInstance().getDriver().findElements(By.xpath("//div[@class='a-section a-spacing-small a-spacing-top-small']/descendant::h2/child::span[contains(text(),'Samsung')]//ancestor::div[contains(@class,'a-section a-spacing-none')]//following-sibling::div[@class='puisg-row puis-desktop-list-row']//preceding-sibling::span[@class='a-price-symbol']/following-sibling::span"));
+		for(int i =0 ;i< mob.size();i++) 
 		{
-			System.out.println(mob.get(i));
+			int ia = Integer.parseInt( mob.get(i).findElement(By.xpath(".//ancestor::div[contains(@class,'a-section a-spacing-none')]//following-sibling::div[@class='puisg-row puis-desktop-list-row']//preceding-sibling::span[@class='a-price-symbol']/following-sibling::span")).getText().replace(",", ""));
+			
+			ExtentFactory.getInstance().passTest(mob.get(i).getText().split("(") + " Price of the mobile is " + ia);
+			
+			System.out.println(mob.get(i).getText().split("(") + " Price of the mobile is " + ia);
+			
+			
+			
 		}
 		String stra = DriverFactory.getInstance().getDriver().findElement(By.xpath("//div[@class='a-section a-spacing-small a-spacing-top-small']/descendant::h2/child::span")).getText();
 		System.out.println(stra);
