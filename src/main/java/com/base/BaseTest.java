@@ -25,7 +25,8 @@ public class BaseTest {
 	}
 
 	@AfterSuite
-	public void tearDown() {
+	public void tearDown() 
+	{
 		DriverFactory.getInstance().getDriver().quit();
 	}
 
