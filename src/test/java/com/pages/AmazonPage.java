@@ -54,6 +54,7 @@ public class AmazonPage  extends BasePage
 	@SuppressWarnings("static-access")
 	public void returnName() 
 	{
+		String[] str ;
 		//List<WebElement> mob = DriverFactory.getInstance().getDriver().findElements(By.xpath("//div[@class='a-section a-spacing-small a-spacing-top-small']/descendant::h2/child::span[contains(text(),'Samsung')]"));
 		List<WebElement> mob = DriverFactory.getInstance().getDriver().findElements(By.xpath("//div[@class='a-section a-spacing-small a-spacing-top-small']/descendant::h2/child::span[contains(text(),'Samsung')]"));
 		//List<WebElement> mob = DriverFactory.getInstance().getDriver().findElements(By.xpath("//div[@class='a-section a-spacing-small a-spacing-top-small']/descendant::h2/child::span[contains(text(),'Samsung')]//ancestor::div[contains(@class,'a-section a-spacing-none')]//following-sibling::div[@class='puisg-row puis-desktop-list-row']//preceding-sibling::span[@class='a-price-symbol']/following-sibling::span"));
@@ -61,9 +62,17 @@ public class AmazonPage  extends BasePage
 		{
 			int ia = Integer.parseInt( mob.get(i).findElement(By.xpath(".//ancestor::div[contains(@class,'a-section a-spacing-none')]//following-sibling::div[@class='puisg-row puis-desktop-list-row']//preceding-sibling::span[@class='a-price-symbol']/following-sibling::span")).getText().replace(",", ""));
 			
-			ExtentFactory.getInstance().passTest(mob.get(i).getText().split("(") + " Price of the mobile is " + ia);
+			str = mob.get(i).getText().split("\\(");
+			if(ia<=20000) 
+			{
+				
+				ExtentFactory.getInstance().passTest(str[0] + " Price of the mobile is " + ia);
+				
+				System.out.println(str[0] + " Price of the mobile is " + ia);
+				
+				
+			}
 			
-			System.out.println(mob.get(i).getText().split("(") + " Price of the mobile is " + ia);
 			
 			
 			
