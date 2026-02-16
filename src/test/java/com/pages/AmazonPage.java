@@ -52,7 +52,9 @@ public class AmazonPage  extends BasePage
 	
 	public void returnName() 
 	{
-		List<WebElement> mob = DriverFactory.getInstance().getDriver().findElements(By.xpath("//div[@class='a-section a-spacing-small a-spacing-top-small']/descendant::h2/child::span[contains(text(),'Samsung')]"));
+		//List<WebElement> mob = DriverFactory.getInstance().getDriver().findElements(By.xpath("//div[@class='a-section a-spacing-small a-spacing-top-small']/descendant::h2/child::span[contains(text(),'Samsung')]"));
+		//List<WebElement> mob = DriverFactory.getInstance().getDriver().findElements(By.xpath("//div[@class='a-section a-spacing-small a-spacing-top-small']/descendant::h2/child::span[contains(text(),'Samsung')]"));
+		List<WebElement> mob = DriverFactory.getInstance().getDriver().findElements(By.xpath("//div[@class='a-section a-spacing-small a-spacing-top-small']/descendant::h2/child::span[contains(text(),'Samsung')]//ancestor::div[contains(@class,'a-section a-spacing-none')]//following-sibling::div[@class='puisg-row puis-desktop-list-row']//preceding-sibling::span[@class='a-price-symbol']/following-sibling::span"));
 		for(int i =0 ;i< 6;i++) 
 		{
 			System.out.println(mob.get(i));
