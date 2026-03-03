@@ -9,7 +9,7 @@ import com.properties.TestDataLoader;
 
 public class AmazTest extends BaseTest
 {
-	@Test
+	@Test(priority = 1)
 	public void loginWithValidUserNameAndValidPassword() 
 	{
 
@@ -20,6 +20,13 @@ public class AmazTest extends BaseTest
 		
 		
 
+	}
+	
+	@Test(priority = 2, dependsOnMethods = "loginWithValidUserNameAndValidPassword")
+	public void clickOnMobile()
+	{
+		AmazonPage amz = new AmazonPage();
+		amz.clickOnMobile();
 	}
 
 }

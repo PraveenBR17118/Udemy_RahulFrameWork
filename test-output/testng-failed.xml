@@ -9,8 +9,8 @@
       <class name="com.test.AmazTest">
         <methods>
           <include name="tearDown"/>
-          <include name="loginWithValidUserNameAndValidPassword"/>
           <include name="setUP"/>
+          <include name="clickOnMobile"/>
         </methods>
       </class> <!-- com.test.AmazTest -->
     </classes>
