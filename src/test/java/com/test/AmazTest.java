@@ -39,7 +39,7 @@ public class AmazTest extends BaseTest
 		amz.closeTab();
 	}
 	
-	@Test( priority = 4)
+	@Test( priority = 4, enabled = false)
 	public void skipTest() 
 	{
 		 boolean isEnvironmentUp = false;
@@ -54,7 +54,7 @@ public class AmazTest extends BaseTest
 		
 	}
 	
-	@Test(priority = 5)
+	@Test(priority = 5, enabled = false)
 	public void failTest() 
 	{
 		 assert false : "This test is designed to fail.";

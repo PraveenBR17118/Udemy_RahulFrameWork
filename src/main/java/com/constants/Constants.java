@@ -5,7 +5,7 @@ public abstract class Constants
 
 	public static final String CURRENT_DIR = System.getProperty("user.dir");
 
-	public static final String EXECUTION_REPORT_PATH = CURRENT_DIR + "/reports/execution.html";
+	public static final String EXECUTION_REPORT_PATH = CURRENT_DIR + "/reports/";
 
 	public static final int EXPLICIT_WAIT_TIME = 20;
 

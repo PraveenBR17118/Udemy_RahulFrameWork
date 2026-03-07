@@ -22,18 +22,21 @@ public class ExtentReportListener implements ITestListener
 
 	private ExtentTest extentTest;
 
-	public void onTestStart(ITestResult result) {
+	public void onTestStart(ITestResult result) 
+	{
 		this.extentTest = extentReports.createTest(result.getName());
 
 		ExtentFactory.getInstance().setExtent(extentTest);
 		logger.info("test is added in pool.");
 	}
 
-	public void onTestSuccess(ITestResult result) {
+	public void onTestSuccess(ITestResult result)
+	{
 		ExtentFactory.getInstance().passTest(result.getName());
 	}
 
-	public void onTestFailure(ITestResult result) {
+	public void onTestFailure(ITestResult result)
+	{
 		ExtentFactory.getInstance().getExtentTest().fail("Exception details " + result.getThrowable().getMessage());
 	}
 
