@@ -80,6 +80,19 @@ public class BasePage
 		
 	}
 	
+	public String getElementText(WebElement element, String elementName) 
+	{
+		
+		explicitWaitActions.waitForElementToBePresent(element, elementName);
+		
+		String text = element.getText();
+		
+		//ExtentFactory.getInstance().passTest("Text of the "+elementName+" is "+text);
+		
+		return text;
+		
+	}
+	
 	
 	
 	

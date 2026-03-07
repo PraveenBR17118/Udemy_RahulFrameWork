@@ -28,6 +28,17 @@ public class AmazTest extends BaseTest
 		AmazonPage amz = new AmazonPage();
 		amz.clickOnMobile();
 	}
+	
+	
+	@Test(priority = 3, dependsOnMethods = "clickOnMobile")
+	public void vrifyCart()
+	{
+		AmazonPage amz = new AmazonPage();
+		amz.verifyCart();
+		amz.closeTab();
+	}
+	
+	
 
 }
 
