@@ -179,10 +179,27 @@ public class AmazonPage extends BasePage
 	}
 	
 	
+	@SuppressWarnings("static-access")
 	public void closeTab() 
 	{
+		
+		
 		firstTabWindowID = DriverFactory.getInstance().getDriver().getWindowHandle();
-		System.out.println("Active tab window id is :" + firstTabWindowID);
+		System.out.println("First tab window id is :" + firstTabWindowID);
+		Set<String> allWindowIds = DriverFactory.getInstance().getDriver().getWindowHandles();
+
+		for (String s : allWindowIds) 
+		{
+			System.out.println("tab window id is :" + s);
+			if (!s.equals(firstTabWindowID)) {
+
+				DriverFactory.getInstance().getDriver().switchTo().window(s);
+				System.out.println("Window is switched to " + s);
+				ExtentFactory.getInstance().passTest("Window is switched to " + s);
+			}
+
+		}
+		
 		
 		commonFunctions.closeTab();
 		
