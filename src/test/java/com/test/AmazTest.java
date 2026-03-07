@@ -1,5 +1,6 @@
 package com.test;
 
+import org.testng.SkipException;
 import org.testng.annotations.Test;
 
 import com.base.BaseTest;
@@ -36,6 +37,27 @@ public class AmazTest extends BaseTest
 		AmazonPage amz = new AmazonPage();
 		amz.verifyCart();
 		amz.closeTab();
+	}
+	
+	@Test( priority = 4)
+	public void skipTest() 
+	{
+		 boolean isEnvironmentUp = false;
+
+	        if (!isEnvironmentUp)
+	        {
+	            // This is the trigger for TestNG
+	            throw new SkipException("Skipping test: Environment is down.");
+	        }
+	        
+	        System.out.println("This line will never be reached.");
+		
+	}
+	
+	@Test(priority = 5)
+	public void failTest() 
+	{
+		 assert false : "This test is designed to fail.";
 	}
 	
 	

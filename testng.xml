@@ -4,7 +4,6 @@
 
 	<listeners>
 		<listener class-name="com.report.ExtentReportListener" />
-
 	</listeners>
 
 	<test thread-count="5" name="Test">
