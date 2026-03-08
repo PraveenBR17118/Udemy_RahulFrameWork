@@ -11,23 +11,21 @@ import com.properties.TestDataLoader;
 public class AmazTest extends BaseTest
 {
 	@Test(priority = 1)
-	public void loginWithValidUserNameAndValidPassword() 
+	public void serch_For_Mobiles() 
 	{
 
 		
 		AmazonPage amz = new AmazonPage();
 		amz.enterSearchName(TestDataLoader.getInstance().getUserName());
-		amz.returnName();
+		amz.returnName(TestDataLoader.getInstance().getMobileName());
 		
-		
-
 	}
 	
-	@Test(priority = 2, dependsOnMethods = "loginWithValidUserNameAndValidPassword")
+	@Test(priority = 2, dependsOnMethods = "serch_For_Mobiles")
 	public void clickOnMobile()
 	{
 		AmazonPage amz = new AmazonPage();
-		amz.clickOnMobile();
+		amz.clickOnMobile(TestDataLoader.getInstance().getMobileName());
 	}
 	
 	

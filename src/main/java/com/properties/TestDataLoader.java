@@ -75,16 +75,24 @@ public class TestDataLoader
 	}
 
 	
-	public String getAppUrl() {
+	public String getAppUrl() 
+	{
 		return this.getPropertyValue("app_url");
 	}
 	
-	public String getUserName() {
+	public String getUserName() 
+	{
 		return this.getPropertyValue("username");
 	}
 	
-	public String getPassword() {
+	public String getPassword() 
+	{
 		return this.getPropertyValue("password");
+	}
+	
+	public String getMobileName() 
+	{
+		return this.getPropertyValue("mobile_name");
 	}
 	
 	
