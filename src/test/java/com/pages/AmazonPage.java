@@ -66,70 +66,163 @@ public class AmazonPage extends BasePage
 	}
 
 	@SuppressWarnings("static-access")
-	public void returnName() 
+	public void returnName(String mobile) 
 	{
 		String[] str;
 		// List<WebElement> mob =
 		// DriverFactory.getInstance().getDriver().findElements(By.xpath("//div[@class='a-section
 		// a-spacing-small
 		// a-spacing-top-small']/descendant::h2/child::span[contains(text(),'Samsung')]"));
-		mob = DriverFactory.getInstance().getDriver().findElements(By.xpath(
-				"//div[@class='a-section a-spacing-small a-spacing-top-small']/descendant::h2/child::span[contains(text(),'Samsung')]"));
-		// List<WebElement> mob =
-		// DriverFactory.getInstance().getDriver().findElements(By.xpath("//div[@class='a-section
-		// a-spacing-small
-		// a-spacing-top-small']/descendant::h2/child::span[contains(text(),'Samsung')]//ancestor::div[contains(@class,'a-section
-		// a-spacing-none')]//following-sibling::div[@class='puisg-row
-		// puis-desktop-list-row']//preceding-sibling::span[@class='a-price-symbol']/following-sibling::span"));
-		for (int i = 0; i < mob.size(); i++) {
-			int ia = Integer.parseInt(mob.get(i).findElement(By.xpath(
-					".//ancestor::div[contains(@class,'a-section a-spacing-none')]//following-sibling::div[@class='puisg-row puis-desktop-list-row']//preceding-sibling::span[@class='a-price-symbol']/following-sibling::span"))
-					.getText().replace(",", ""));
+		
+		if(mobile.equals("Samsung")) 
+		{
+			System.out.println("Mobile name is " + mobile);
+			mob = DriverFactory.getInstance().getDriver().findElements(By.xpath(
+					"//div[@class='a-section a-spacing-small a-spacing-top-small']/descendant::h2/child::span[contains(text(),'"+mobile+"')]"));
+			System.out.println("Size of the mobile list is " + mob.size());
+			if(mob.size()>0) 
+			{
+				for (int i = 0; i < mob.size(); i++) {
+					int ia = Integer.parseInt(mob.get(i).findElement(By.xpath(
+							".//ancestor::div[contains(@class,'a-section a-spacing-none')]//following-sibling::div[@class='puisg-row puis-desktop-list-row']//preceding-sibling::span[@class='a-price-symbol']/following-sibling::span"))
+							.getText().replace(",", ""));
 
-			str = mob.get(i).getText().split("\\(");
-			if (ia <= 20000) {
+					str = mob.get(i).getText().split("\\(");
+					if (ia <= 20000) {
 
-				ExtentFactory.getInstance().passTest(str[0] + " Price of the mobile is " + ia);
+						ExtentFactory.getInstance().passTest(str[0] + " Price of the mobile is " + ia);
 
-				System.out.println(str[0] + " Price of the mobile is " + ia);
+						System.out.println(str[0] + " Price of the mobile is " + ia);
 
+					}
+
+				}
+				
 			}
-
+			else
+			{
+				ExtentFactory.getInstance().falTest("No mobile found with the name "+mobile);
+			}
 		}
-		String stra = DriverFactory.getInstance().getDriver()
-				.findElement(By.xpath(
-						"//div[@class='a-section a-spacing-small a-spacing-top-small']/descendant::h2/child::span"))
-				.getText();
-		System.out.println(stra);
+		else 
+		{
+			System.out.println("Mobile name is " + mobile);
+			mob = DriverFactory.getInstance().getDriver().findElements(By.xpath(
+					"//div[@class='a-section a-spacing-small a-spacing-top-small']/descendant::h2/child::span[contains(text(),'"+mobile+"')]"));
+			System.out.println("Size of the mobile list is " + mob.size());
+			
+			if(mob.size()>0) 
+			{
+				for (int i = 0; i < mob.size(); i++) {
+					int ia = Integer.parseInt(mob.get(i).findElement(By.xpath(
+							".//ancestor::div[contains(@class,'a-section a-spacing-none')]//following-sibling::div[@class='puisg-row puis-desktop-list-row']//preceding-sibling::span[@class='a-price-symbol']/following-sibling::span"))
+							.getText().replace(",", ""));
+
+					str = mob.get(i).getText().split("\\(");
+					if (ia <= 100000) {
+
+						ExtentFactory.getInstance().passTest(str[0] + " Price of the mobile is " + ia);
+
+						System.out.println(str[0] + " Price of the mobile is " + ia);
+
+					}
+
+				}
+				
+			}
+			else
+			{
+				ExtentFactory.getInstance().falTest("No mobile found with the name "+mobile);
+			}
+		}
+		
+		
 	}
 
 	@SuppressWarnings("static-access")
-	public void clickOnMobile() {
+	public void clickOnMobile(String mobile) 
+	{
 		String[] stra;
+		
+		if(mobile.equals("Samsung")) 
+		{
+			mob = DriverFactory.getInstance().getDriver().findElements(By.xpath(
+					"//div[@class='a-section a-spacing-small a-spacing-top-small']/descendant::h2/child::span[contains(text(),'"+mobile+"')]"));
+			System.out.println("Size of the mobile list is " + mob.size());
+			
+			if(mob.size()>0) 
+			{
+				for (int i = 0; i < mob.size(); i++) 
+				{
+					int ia = Integer.parseInt(mob.get(i).findElement(By.xpath(
+							".//ancestor::div[contains(@class,'a-section a-spacing-none')]//following-sibling::div[@class='puisg-row puis-desktop-list-row']//preceding-sibling::span[@class='a-price-symbol']/following-sibling::span"))
+							.getText().replace(",", ""));
 
-		mob = DriverFactory.getInstance().getDriver().findElements(By.xpath(
-				"//div[@class='a-section a-spacing-small a-spacing-top-small']/descendant::h2/child::span[contains(text(),'Samsung')]"));
-		for (int i = 0; i < mob.size(); i++) {
-			int ia = Integer.parseInt(mob.get(i).findElement(By.xpath(
-					".//ancestor::div[contains(@class,'a-section a-spacing-none')]//following-sibling::div[@class='puisg-row puis-desktop-list-row']//preceding-sibling::span[@class='a-price-symbol']/following-sibling::span"))
-					.getText().replace(",", ""));
+					stra = mob.get(i).getText().split("\\(");
+					if (ia <= 20000) {
+						super.click(mob.get(i), "Click on Mobile form the List less than 20000");
 
-			stra = mob.get(i).getText().split("\\(");
-			if (ia <= 20000) {
-				super.click(mob.get(i), "Click on Mobile form the List less than 20000");
+						try {
+							Thread.sleep(6000);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 
-				try {
-					Thread.sleep(6000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+						break;
+
+					}
+
 				}
-
-				break;
-
+				
 			}
-
+			else
+			{
+				ExtentFactory.getInstance().falTest("No "+mobile+" found less than 20000");
+			}
+			
+			
 		}
+		
+		else 
+		{
+			mob = DriverFactory.getInstance().getDriver().findElements(By.xpath(
+					"//div[@class='a-section a-spacing-small a-spacing-top-small']/descendant::h2/child::span[contains(text(),'"+mobile+"')]"));
+			
+			if(mob.size()>0) 
+			{
+				for (int i = 0; i < mob.size(); i++)
+				{
+					int ia = Integer.parseInt(mob.get(i).findElement(By.xpath(
+							".//ancestor::div[contains(@class,'a-section a-spacing-none')]//following-sibling::div[@class='puisg-row puis-desktop-list-row']//preceding-sibling::span[@class='a-price-symbol']/following-sibling::span"))
+							.getText().replace(",", ""));
+
+					stra = mob.get(i).getText().split("\\(");
+					if (ia <= 100000) {
+						super.click(mob.get(i), "Click on Mobile form the List less than 100000");
+
+						try {
+							Thread.sleep(6000);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+
+						break;
+
+					}
+
+				}
+				
+			}
+			else
+			{
+				ExtentFactory.getInstance().falTest("No "+mobile+" found less than 100000");
+			}
+			
+		}
+
+		
 
 		firstTabWindowID = DriverFactory.getInstance().getDriver().getWindowHandle();
 		System.out.println("First tab window id is :" + firstTabWindowID);
