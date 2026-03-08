@@ -95,7 +95,7 @@ public class BaseTest
 			}
 			catch (IOException e)
 			{
-				System.err.println("Error creating target directory: " + e.getMessage());
+				System.err.println("Error creating target directory is failed : " + e.getMessage());
 				return;
 			}
 		}
