@@ -119,7 +119,8 @@ public class AmazonPage extends BasePage
 							.getText().replace(",", ""));
 
 					str = mob.get(i).getText().split("\\(");
-					if (ia <= 100000) {
+					if (ia <= 100000)
+					{
 
 						ExtentFactory.getInstance().passTest(str[0] + " Price of the mobile is " + ia);
 
@@ -160,10 +161,13 @@ public class AmazonPage extends BasePage
 
 					stra = mob.get(i).getText().split("\\(");
 					if (ia <= 20000) {
-						super.click(mob.get(i), "Click on Mobile form the List less than 20000");
+						super.click(mob.get(i), "Click on Mobile "+stra[0]+"form the List ");
+						//ExtentFactory.getInstance().passTest(stra[0] + " Price of the mobile is " + ia);
+
+						//System.out.println(stra[0] + " Price of the mobile is " + ia);
 
 						try {
-							Thread.sleep(6000);
+							Thread.sleep(3000);
 						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -198,12 +202,18 @@ public class AmazonPage extends BasePage
 							.getText().replace(",", ""));
 
 					stra = mob.get(i).getText().split("\\(");
-					if (ia <= 100000) {
-						super.click(mob.get(i), "Click on Mobile form the List less than 100000");
+					if (ia <= 100000) 
+					{
+						super.click(mob.get(i), "Click on Mobile "+stra[0]+"form the List ");
+						//ExtentFactory.getInstance().passTest(stra[0] + " Price of the mobile is " + ia);
 
-						try {
-							Thread.sleep(6000);
-						} catch (InterruptedException e) {
+						//System.out.println(stra[0] + " Price of the mobile is " + ia);
+
+						try 
+						{
+							Thread.sleep(3000);
+						} catch (InterruptedException e) 
+						{
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
