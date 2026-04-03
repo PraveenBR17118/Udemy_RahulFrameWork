@@ -34,10 +34,19 @@ public class AmazTest extends BaseTest
 	{
 		AmazonPage amz = new AmazonPage();
 		amz.verifyCart();
+		
+	}
+	
+	
+	@Test(priority = 4, dependsOnMethods = "vrifyCart")
+	public void verifyTotalAmount()
+	{
+		AmazonPage amz = new AmazonPage();
+		amz.clickOnCartIcon();
 		amz.closeTab();
 	}
 	
-	@Test( priority = 4, enabled = false)
+	@Test( priority = 5, enabled = false)
 	public void skipTest() 
 	{
 		 boolean isEnvironmentUp = false;
@@ -52,7 +61,7 @@ public class AmazTest extends BaseTest
 		
 	}
 	
-	@Test(priority = 5, enabled = false)
+	@Test(priority = 6, enabled = false)
 	public void failTest() 
 	{
 		 assert false : "This test is designed to fail.";
