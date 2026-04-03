@@ -9,8 +9,9 @@
       <class name="com.test.AmazTest">
         <methods>
           <include name="tearDown"/>
+          <include name="skipTest"/>
           <include name="setUP"/>
-          <include name="clickOnMobile"/>
+          <include name="failTest"/>
         </methods>
       </class> <!-- com.test.AmazTest -->
     </classes>
