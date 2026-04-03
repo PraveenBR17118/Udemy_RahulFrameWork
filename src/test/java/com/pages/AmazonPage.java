@@ -44,6 +44,13 @@ public class AmazonPage extends BasePage
 	@FindBy(xpath = "//span[@id='nav-cart-count']")
 	private WebElement cartCount;
 	
+	@FindBy(xpath = "//h2[@id='sc-active-items-header']")
+	private WebElement cartHeader;
+	
+	
+	@FindBy(xpath = "//span[@id='sc-subtotal-label-buybox']//following-sibling::span//span")
+	private WebElement subTotalAmount;
+	
 	
 	String firstTabWindowID;
 	
@@ -278,6 +285,37 @@ public class AmazonPage extends BasePage
 		
 		ExtentFactory.getInstance().passTest("Number of item in cart is "+number);
 		
+		
+	}
+	
+	
+	@SuppressWarnings("static-access")
+	public void clickOnCartIcon() 
+	{
+		
+		firstTabWindowID = DriverFactory.getInstance().getDriver().getWindowHandle();
+		System.out.println("First tab window id is :" + firstTabWindowID);
+		Set<String> allWindowIds = DriverFactory.getInstance().getDriver().getWindowHandles();
+		for (String s : allWindowIds) 
+		{
+			System.out.println("tab window id is :" + s);
+			if (!s.equals(firstTabWindowID)) {
+
+				DriverFactory.getInstance().getDriver().switchTo().window(s);
+				System.out.println("Window is switched to " + s);
+				ExtentFactory.getInstance().passTest("Window is switched to " + s);
+			}
+
+		}
+		
+		super.click(cartCount, "Cart icon");
+		String cartHeaderText = super.getElementText(cartHeader, "Cart icon");
+		
+		String subTotal = super.getElementText(subTotalAmount, "Sub total amount in cart");
+		
+		ExtentFactory.getInstance().passTest("Number of item in cart is "+cartHeaderText);
+		
+		ExtentFactory.getInstance().passTest("Total amount is : "+subTotal);
 		
 	}
 	
