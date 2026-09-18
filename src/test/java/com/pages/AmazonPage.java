@@ -38,7 +38,8 @@ public class AmazonPage extends BasePage
 	private WebElement mobileTitle;
 	
 	
-	@FindBy(xpath = "//div[@id='quantityLayoutLow_feature_div']/following::div[@id='addToCart_feature_div']//child::span[@id='submit.add-to-cart']")
+	//@FindBy(xpath = "//div[@id='quantityLayoutLow_feature_div']/following::div[@id='addToCart_feature_div']//child::span[@id='submit.add-to-cart']")
+	@FindBy(xpath = "//span[@id='nav-cart-count']")
 	private WebElement addToCartBtn;
 	
 	@FindBy(xpath = "//span[@id='nav-cart-count']")
