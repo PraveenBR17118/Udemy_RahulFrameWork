@@ -33,7 +33,7 @@ public class AmazTest extends BaseTest
 	public void vrifyCart()
 	{
 		AmazonPage amz = new AmazonPage();
-		amz.verifyCart();
+		amz.verifyCart(TestDataLoader.getInstance().getMobileName());
 		
 	}
 	

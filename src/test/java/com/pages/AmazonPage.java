@@ -12,6 +12,7 @@ import com.base.BasePage;
 import com.base.CommonFunctions;
 import com.driver.DriverFactory;
 import com.report.ExtentFactory;
+import com.waits.ExplicitWaitActions;
 
 public class AmazonPage extends BasePage 
 {
@@ -39,8 +40,11 @@ public class AmazonPage extends BasePage
 	
 	
 	//@FindBy(xpath = "//div[@id='quantityLayoutLow_feature_div']/following::div[@id='addToCart_feature_div']//child::span[@id='submit.add-to-cart']")
-	@FindBy(xpath = "//span[@id='nav-cart-count']")
+	@FindBy(xpath = "(//input[@id=\"add-to-cart-button\" and @value='Add to cart'])[2]")
 	private WebElement addToCartBtn;
+	
+	@FindBy(xpath = "//input[@type='submit']/following-sibling::span[text()=' Cart ']")
+	private WebElement cartIcon2;
 	
 	@FindBy(xpath = "//span[@id='nav-cart-count']")
 	private WebElement cartCount;
@@ -54,8 +58,11 @@ public class AmazonPage extends BasePage
 	
 	
 	String firstTabWindowID;
+	String secondTabWindowID;
 	
 	CommonFunctions commonFunctions;
+	
+	ExplicitWaitActions explicitWaitActions;
 
 	List<WebElement> mob;
 
@@ -63,6 +70,7 @@ public class AmazonPage extends BasePage
 	{
 		PageFactory.initElements(DriverFactory.getInstance().getDriver(), this);
 		commonFunctions = new CommonFunctions();
+		this.explicitWaitActions = new ExplicitWaitActions();
 	}
 
 	public void enterSearchName(String userNameValue) {
@@ -242,18 +250,20 @@ public class AmazonPage extends BasePage
 
 		
 
-		firstTabWindowID = DriverFactory.getInstance().getDriver().getWindowHandle();
-		System.out.println("First tab window id is :" + firstTabWindowID);
+		this.firstTabWindowID = DriverFactory.getInstance().getDriver().getWindowHandle();
+		System.out.println("First tab window id is :" + this.firstTabWindowID);
 		Set<String> allWindowIds = DriverFactory.getInstance().getDriver().getWindowHandles();
 
 		for (String s : allWindowIds) 
 		{
 			System.out.println("tab window id is :" + s);
-			if (!s.equals(firstTabWindowID)) {
+			if (!s.equals(this.firstTabWindowID)) {
 
 				DriverFactory.getInstance().getDriver().switchTo().window(s);
 				System.out.println("Window is switched to " + s);
 				ExtentFactory.getInstance().passTest("Window is switched to " + s);
+				this.secondTabWindowID = s;
+				break;
 			}
 
 		}
@@ -278,9 +288,24 @@ public class AmazonPage extends BasePage
 	}
 
 	@SuppressWarnings("static-access")
-	public void verifyCart() 
+	public void verifyCart(String mobile) 
 	{
 		super.click(addToCartBtn, "Add to Cart Button");
+		
+		//System.out.println("Cart icon2 is displayed in DOM "+cartIcon2.isDisplayed()); 
+		
+		if(mobile.equals("iPhone")) 
+		{
+			click(cartIcon2, "Add to Cart Button is displayed twice");
+			ExtentFactory.getInstance().passTest("Cart Button is displayed twice");
+		}
+		
+		else
+		{
+			//click(cartIcon2, "Add to Cart Button is displayed twice");
+			ExtentFactory.getInstance().passTest("Cart Button is not displayed twice");
+		} 
+		
 		
 		String number = super.getElementText(cartCount, "Cart icon");
 		
@@ -294,20 +319,26 @@ public class AmazonPage extends BasePage
 	public void clickOnCartIcon() 
 	{
 		
-		firstTabWindowID = DriverFactory.getInstance().getDriver().getWindowHandle();
-		System.out.println("First tab window id is :" + firstTabWindowID);
-		Set<String> allWindowIds = DriverFactory.getInstance().getDriver().getWindowHandles();
-		for (String s : allWindowIds) 
-		{
-			System.out.println("tab window id is :" + s);
-			if (!s.equals(firstTabWindowID)) {
-
-				DriverFactory.getInstance().getDriver().switchTo().window(s);
-				System.out.println("Window is switched to " + s);
-				ExtentFactory.getInstance().passTest("Window is switched to " + s);
-			}
-
-		}
+//		this.firstTabWindowID = DriverFactory.getInstance().getDriver().getWindowHandle();
+//		System.out.println("First tab window id is :" + this.firstTabWindowID);
+//		DriverFactory.getInstance().getDriver().switchTo().window(this.secondTabWindowID);
+//		ExtentFactory.getInstance().passTest("Window is switched to " + this.secondTabWindowID);
+		
+//		Set<String> allWindowIds = DriverFactory.getInstance().getDriver().getWindowHandles();
+//		for (String strb : allWindowIds) 
+//		{
+//			System.out.println("tab window id is :" + strb);
+//			if (!strb.equals(firstTabWindowID)) {
+//
+//				DriverFactory.getInstance().getDriver().switchTo().window(strb);
+//				System.out.println("Window is switched to " + strb);
+//				ExtentFactory.getInstance().passTest("Window is switched to " + strb);
+//				break;
+//			}
+//
+//		}
+		System.out.println("Active window is :" + DriverFactory.getInstance().getDriver().getWindowHandle());
+		this.explicitWaitActions.waitForElementToBeClickable(cartCount, "Cart icon");
 		
 		super.click(cartCount, "Cart icon");
 		String cartHeaderText = super.getElementText(cartHeader, "Cart icon");
@@ -333,7 +364,8 @@ public class AmazonPage extends BasePage
 		for (String s : allWindowIds) 
 		{
 			System.out.println("tab window id is :" + s);
-			if (!s.equals(firstTabWindowID)) {
+			if (!s.equals(firstTabWindowID)) 
+			{
 
 				DriverFactory.getInstance().getDriver().switchTo().window(s);
 				System.out.println("Window is switched to " + s);

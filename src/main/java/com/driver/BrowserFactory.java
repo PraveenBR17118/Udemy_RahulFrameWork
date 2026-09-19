@@ -29,6 +29,7 @@ public class BrowserFactory {
 
 			//WebDriver driver = new ChromeDriver(options);
 			driver = new ChromeDriver(options);
+			//driver = new ChromeDriver();
 			driver.manage().window().maximize();
 		}
 
