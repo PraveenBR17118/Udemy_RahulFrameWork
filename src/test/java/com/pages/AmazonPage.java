@@ -245,7 +245,7 @@ public class AmazonPage extends BasePage {
 		 * getInstance().getDriver().getWindowHandles().toArray()[1].toString());
 		 * //Super.click(mobilesLis, "Mobile List");
 		 */
-		this.explicitWaitActions.waitForElementToBeClickable(mobileTitle, "Waiting for mobile titles to be displayed");	
+		this.explicitWaitActions.waitForElementToBePresent(mobileTitle, "Waiting for mobile titles to be displayed");	
 		String result = mobileTitle.getText().split("\\(")[0];
 		System.out.println("Mobile name is  " + result);
 		ExtentFactory.getInstance().passTest(" Mobile name is  " + result);
