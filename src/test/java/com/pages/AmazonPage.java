@@ -12,9 +12,9 @@ import com.base.BasePage;
 import com.base.CommonFunctions;
 import com.driver.DriverFactory;
 import com.report.ExtentFactory;
+import com.waits.ExplicitWaitActions;
 
-public class AmazonPage extends BasePage 
-{
+public class AmazonPage extends BasePage {
 
 	@FindBy(name = "username")
 	private WebElement userNameTextBox;
@@ -36,32 +36,37 @@ public class AmazonPage extends BasePage
 
 	@FindBy(xpath = "//span[@id='productTitle']")
 	private WebElement mobileTitle;
-	
-	
-	@FindBy(xpath = "//div[@id='quantityLayoutLow_feature_div']/following::div[@id='addToCart_feature_div']//child::span[@id='submit.add-to-cart']")
+
+	// @FindBy(xpath =
+	// "//div[@id='quantityLayoutLow_feature_div']/following::div[@id='addToCart_feature_div']//child::span[@id='submit.add-to-cart']")
+	@FindBy(xpath = "(//input[@id=\"add-to-cart-button\" and @value='Add to cart'])[2]")
 	private WebElement addToCartBtn;
-	
+
+	@FindBy(xpath = "//input[@type='submit']/following-sibling::span[text()=' Cart ']")
+	private WebElement cartIcon2;
+
 	@FindBy(xpath = "//span[@id='nav-cart-count']")
 	private WebElement cartCount;
-	
+
 	@FindBy(xpath = "//h2[@id='sc-active-items-header']")
 	private WebElement cartHeader;
-	
-	
+
 	@FindBy(xpath = "//span[@id='sc-subtotal-label-buybox']//following-sibling::span//span")
 	private WebElement subTotalAmount;
-	
-	
+
 	String firstTabWindowID;
-	
+	String secondTabWindowID;
+
 	CommonFunctions commonFunctions;
+
+	ExplicitWaitActions explicitWaitActions;
 
 	List<WebElement> mob;
 
-	public AmazonPage() 
-	{
+	public AmazonPage() {
 		PageFactory.initElements(DriverFactory.getInstance().getDriver(), this);
 		commonFunctions = new CommonFunctions();
+		this.explicitWaitActions = new ExplicitWaitActions();
 	}
 
 	public void enterSearchName(String userNameValue) {
@@ -73,22 +78,20 @@ public class AmazonPage extends BasePage
 	}
 
 	@SuppressWarnings("static-access")
-	public void returnName(String mobile) 
-	{
+	public void returnName(String mobile) {
 		String[] str;
 		// List<WebElement> mob =
 		// DriverFactory.getInstance().getDriver().findElements(By.xpath("//div[@class='a-section
 		// a-spacing-small
 		// a-spacing-top-small']/descendant::h2/child::span[contains(text(),'Samsung')]"));
-		
-		if(mobile.equals("Samsung")) 
-		{
+
+		if (mobile.equals("Samsung")) {
 			System.out.println("Mobile name is " + mobile);
 			mob = DriverFactory.getInstance().getDriver().findElements(By.xpath(
-					"//div[@class='a-section a-spacing-small a-spacing-top-small']/descendant::h2/child::span[contains(text(),'"+mobile+"')]"));
+					"//div[@class='a-section a-spacing-small a-spacing-top-small']/descendant::h2/child::span[contains(text(),'"
+							+ mobile + "')]"));
 			System.out.println("Size of the mobile list is " + mob.size());
-			if(mob.size()>0) 
-			{
+			if (mob.size() > 0) {
 				for (int i = 0; i < mob.size(); i++) {
 					int ia = Integer.parseInt(mob.get(i).findElement(By.xpath(
 							".//ancestor::div[contains(@class,'a-section a-spacing-none')]//following-sibling::div[@class='puisg-row puis-desktop-list-row']//preceding-sibling::span[@class='a-price-symbol']/following-sibling::span"))
@@ -104,30 +107,25 @@ public class AmazonPage extends BasePage
 					}
 
 				}
-				
+
+			} else {
+				ExtentFactory.getInstance().falTest("No mobile found with the name " + mobile);
 			}
-			else
-			{
-				ExtentFactory.getInstance().falTest("No mobile found with the name "+mobile);
-			}
-		}
-		else 
-		{
+		} else {
 			System.out.println("Mobile name is " + mobile);
 			mob = DriverFactory.getInstance().getDriver().findElements(By.xpath(
-					"//div[@class='a-section a-spacing-small a-spacing-top-small']/descendant::h2/child::span[contains(text(),'"+mobile+"')]"));
+					"//div[@class='a-section a-spacing-small a-spacing-top-small']/descendant::h2/child::span[contains(text(),'"
+							+ mobile + "')]"));
 			System.out.println("Size of the mobile list is " + mob.size());
-			
-			if(mob.size()>0) 
-			{
+
+			if (mob.size() > 0) {
 				for (int i = 0; i < mob.size(); i++) {
 					int ia = Integer.parseInt(mob.get(i).findElement(By.xpath(
 							".//ancestor::div[contains(@class,'a-section a-spacing-none')]//following-sibling::div[@class='puisg-row puis-desktop-list-row']//preceding-sibling::span[@class='a-price-symbol']/following-sibling::span"))
 							.getText().replace(",", ""));
 
 					str = mob.get(i).getText().split("\\(");
-					if (ia <= 100000)
-					{
+					if (ia <= 100000) {
 
 						ExtentFactory.getInstance().passTest(str[0] + " Price of the mobile is " + ia);
 
@@ -136,42 +134,37 @@ public class AmazonPage extends BasePage
 					}
 
 				}
-				
-			}
-			else
-			{
-				ExtentFactory.getInstance().falTest("No mobile found with the name "+mobile);
+
+			} else {
+				ExtentFactory.getInstance().falTest("No mobile found with the name " + mobile);
 			}
 		}
-		
-		
+
 	}
 
 	@SuppressWarnings("static-access")
-	public void clickOnMobile(String mobile) 
-	{
+	public void clickOnMobile(String mobile) {
 		String[] stra;
-		
-		if(mobile.equals("Samsung")) 
-		{
+
+		if (mobile.equals("Samsung")) {
 			mob = DriverFactory.getInstance().getDriver().findElements(By.xpath(
-					"//div[@class='a-section a-spacing-small a-spacing-top-small']/descendant::h2/child::span[contains(text(),'"+mobile+"')]"));
+					"//div[@class='a-section a-spacing-small a-spacing-top-small']/descendant::h2/child::span[contains(text(),'"
+							+ mobile + "')]"));
 			System.out.println("Size of the mobile list is " + mob.size());
-			
-			if(mob.size()>0) 
-			{
-				for (int i = 0; i < mob.size(); i++) 
-				{
+
+			if (mob.size() > 0) {
+				for (int i = 0; i < mob.size(); i++) {
 					int ia = Integer.parseInt(mob.get(i).findElement(By.xpath(
 							".//ancestor::div[contains(@class,'a-section a-spacing-none')]//following-sibling::div[@class='puisg-row puis-desktop-list-row']//preceding-sibling::span[@class='a-price-symbol']/following-sibling::span"))
 							.getText().replace(",", ""));
 
 					stra = mob.get(i).getText().split("\\(");
 					if (ia <= 20000) {
-						super.click(mob.get(i), "Click on Mobile "+stra[0]+"form the List ");
-						//ExtentFactory.getInstance().passTest(stra[0] + " Price of the mobile is " + ia);
+						super.click(mob.get(i), "Click on Mobile " + stra[0] + "form the List ");
+						// ExtentFactory.getInstance().passTest(stra[0] + " Price of the mobile is " +
+						// ia);
 
-						//System.out.println(stra[0] + " Price of the mobile is " + ia);
+						// System.out.println(stra[0] + " Price of the mobile is " + ia);
 
 						try {
 							Thread.sleep(3000);
@@ -185,42 +178,35 @@ public class AmazonPage extends BasePage
 					}
 
 				}
-				
+
+			} else {
+				ExtentFactory.getInstance().falTest("No " + mobile + " found less than 20000");
 			}
-			else
-			{
-				ExtentFactory.getInstance().falTest("No "+mobile+" found less than 20000");
-			}
-			
-			
+
 		}
-		
-		else 
-		{
+
+		else {
 			mob = DriverFactory.getInstance().getDriver().findElements(By.xpath(
-					"//div[@class='a-section a-spacing-small a-spacing-top-small']/descendant::h2/child::span[contains(text(),'"+mobile+"')]"));
-			
-			if(mob.size()>0) 
-			{
-				for (int i = 0; i < mob.size(); i++)
-				{
+					"//div[@class='a-section a-spacing-small a-spacing-top-small']/descendant::h2/child::span[contains(text(),'"
+							+ mobile + "')]"));
+
+			if (mob.size() > 0) {
+				for (int i = 0; i < mob.size(); i++) {
 					int ia = Integer.parseInt(mob.get(i).findElement(By.xpath(
 							".//ancestor::div[contains(@class,'a-section a-spacing-none')]//following-sibling::div[@class='puisg-row puis-desktop-list-row']//preceding-sibling::span[@class='a-price-symbol']/following-sibling::span"))
 							.getText().replace(",", ""));
 
 					stra = mob.get(i).getText().split("\\(");
-					if (ia <= 100000) 
-					{
-						super.click(mob.get(i), "Click on Mobile "+stra[0]+"form the List ");
-						//ExtentFactory.getInstance().passTest(stra[0] + " Price of the mobile is " + ia);
+					if (ia <= 100000) {
+						super.click(mob.get(i), "Click on Mobile " + stra[0] + "form the List ");
+						// ExtentFactory.getInstance().passTest(stra[0] + " Price of the mobile is " +
+						// ia);
 
-						//System.out.println(stra[0] + " Price of the mobile is " + ia);
+						// System.out.println(stra[0] + " Price of the mobile is " + ia);
 
-						try 
-						{
+						try {
 							Thread.sleep(3000);
-						} catch (InterruptedException e) 
-						{
+						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
@@ -230,107 +216,114 @@ public class AmazonPage extends BasePage
 					}
 
 				}
-				
+
+			} else {
+				ExtentFactory.getInstance().falTest("No " + mobile + " found less than 100000");
 			}
-			else
-			{
-				ExtentFactory.getInstance().falTest("No "+mobile+" found less than 100000");
-			}
-			
+
 		}
 
-		
-
-		firstTabWindowID = DriverFactory.getInstance().getDriver().getWindowHandle();
-		System.out.println("First tab window id is :" + firstTabWindowID);
+		this.firstTabWindowID = DriverFactory.getInstance().getDriver().getWindowHandle();
+		System.out.println("First tab window id is :" + this.firstTabWindowID);
 		Set<String> allWindowIds = DriverFactory.getInstance().getDriver().getWindowHandles();
 
-		for (String s : allWindowIds) 
-		{
+		for (String s : allWindowIds) {
 			System.out.println("tab window id is :" + s);
-			if (!s.equals(firstTabWindowID)) {
+			if (!s.equals(this.firstTabWindowID)) {
 
 				DriverFactory.getInstance().getDriver().switchTo().window(s);
 				System.out.println("Window is switched to " + s);
 				ExtentFactory.getInstance().passTest("Window is switched to " + s);
+				this.secondTabWindowID = s;
+				break;
 			}
 
 		}
 
-		
 		/*
 		 * DriverFactory.getInstance().getDriver().switchTo().window(DriverFactory.
 		 * getInstance().getDriver().getWindowHandles().toArray()[1].toString());
 		 * //Super.click(mobilesLis, "Mobile List");
 		 */
-		  String result = mobileTitle.getText().split("\\(")[0];
-		  System.out.println("Mobile name is  " + result);
-		  ExtentFactory.getInstance().passTest(" Mobile name is  " + result);
-		  //commonFunctions.closeTab();
-		  
-		 // DriverFactory.getInstance().getDriver().switchTo().window(firstTabWindowID);
-		 // ExtentFactory.getInstance().passTest("Window is switched parent window " + firstTabWindowID);
-		  //ExtentFactory.getInstance().passTest("Window is closed " + firstTabWindowID);
-		  
-		 
+		this.explicitWaitActions.waitForElementToBePresent(mobileTitle, "Waiting for mobile titles to be displayed");	
+		String result = mobileTitle.getText().split("\\(")[0];
+		System.out.println("Mobile name is  " + result);
+		ExtentFactory.getInstance().passTest(" Mobile name is  " + result);
+		// commonFunctions.closeTab();
+
+		// DriverFactory.getInstance().getDriver().switchTo().window(firstTabWindowID);
+		// ExtentFactory.getInstance().passTest("Window is switched parent window " +
+		// firstTabWindowID);
+		// ExtentFactory.getInstance().passTest("Window is closed " + firstTabWindowID);
 
 	}
 
 	@SuppressWarnings("static-access")
-	public void verifyCart() 
-	{
+	public void verifyCart(String mobile) {
 		super.click(addToCartBtn, "Add to Cart Button");
-		
-		String number = super.getElementText(cartCount, "Cart icon");
-		
-		ExtentFactory.getInstance().passTest("Number of item in cart is "+number);
-		
-		
-	}
-	
-	
-	@SuppressWarnings("static-access")
-	public void clickOnCartIcon() 
-	{
-		
-		firstTabWindowID = DriverFactory.getInstance().getDriver().getWindowHandle();
-		System.out.println("First tab window id is :" + firstTabWindowID);
-		Set<String> allWindowIds = DriverFactory.getInstance().getDriver().getWindowHandles();
-		for (String s : allWindowIds) 
-		{
-			System.out.println("tab window id is :" + s);
-			if (!s.equals(firstTabWindowID)) {
 
-				DriverFactory.getInstance().getDriver().switchTo().window(s);
-				System.out.println("Window is switched to " + s);
-				ExtentFactory.getInstance().passTest("Window is switched to " + s);
-			}
+		// System.out.println("Cart icon2 is displayed in DOM
+		// "+cartIcon2.isDisplayed());
 
+		if (mobile.equals("iPhone")) {
+			click(cartIcon2, "Add to Cart Button is displayed twice");
+			ExtentFactory.getInstance().passTest("Cart Button is displayed twice");
 		}
-		
+
+		else {
+			// click(cartIcon2, "Add to Cart Button is displayed twice");
+			ExtentFactory.getInstance().passTest("Cart Button is not displayed twice");
+		}
+
+		String number = super.getElementText(cartCount, "Cart icon");
+
+		ExtentFactory.getInstance().passTest("Number of item in cart is " + number);
+
+	}
+
+	@SuppressWarnings("static-access")
+	public void clickOnCartIcon() {
+
+//		this.firstTabWindowID = DriverFactory.getInstance().getDriver().getWindowHandle();
+//		System.out.println("First tab window id is :" + this.firstTabWindowID);
+//		DriverFactory.getInstance().getDriver().switchTo().window(this.secondTabWindowID);
+//		ExtentFactory.getInstance().passTest("Window is switched to " + this.secondTabWindowID);
+
+//		Set<String> allWindowIds = DriverFactory.getInstance().getDriver().getWindowHandles();
+//		for (String strb : allWindowIds) 
+//		{
+//			System.out.println("tab window id is :" + strb);
+//			if (!strb.equals(firstTabWindowID)) {
+//
+//				DriverFactory.getInstance().getDriver().switchTo().window(strb);
+//				System.out.println("Window is switched to " + strb);
+//				ExtentFactory.getInstance().passTest("Window is switched to " + strb);
+//				break;
+//			}
+//
+//		}
+		System.out.println("Active window is :" + DriverFactory.getInstance().getDriver().getWindowHandle());
+		this.explicitWaitActions.waitForElementToBeClickable(cartCount, "Cart icon");
+
 		super.click(cartCount, "Cart icon");
 		String cartHeaderText = super.getElementText(cartHeader, "Cart icon");
-		
+
 		String subTotal = super.getElementText(subTotalAmount, "Sub total amount in cart");
-		
-		ExtentFactory.getInstance().passTest("Number of item in cart is "+cartHeaderText);
-		
-		ExtentFactory.getInstance().passTest("Total amount is : "+subTotal);
-		
+
+		ExtentFactory.getInstance().passTest("Number of item in cart is " + cartHeaderText);
+
+		ExtentFactory.getInstance().passTest("Total amount is : " + subTotal);
+
 	}
-	
-	
+
 	@SuppressWarnings("static-access")
-	public void closeTab() 
-	{
-		
-		
+	public void closeTab() {
+
 		firstTabWindowID = DriverFactory.getInstance().getDriver().getWindowHandle();
 		System.out.println("First tab window id is :" + firstTabWindowID);
 		Set<String> allWindowIds = DriverFactory.getInstance().getDriver().getWindowHandles();
 
-		for (String s : allWindowIds) 
-		{
+		for (String s : allWindowIds) {
 			System.out.println("tab window id is :" + s);
 			if (!s.equals(firstTabWindowID)) {
 
@@ -340,15 +333,13 @@ public class AmazonPage extends BasePage
 			}
 
 		}
-		
-		
-		commonFunctions.closeTab();
-		
-		//firstTabWindowID = DriverFactory.getInstance().getDriver().getWindowHandle();
-		//System.out.println("Active tab window id is :" + firstTabWindowID);
 
-		//DriverFactory.getInstance().getDriver().switchTo().window(firstTabWindowID);
+		commonFunctions.closeTab();
+
+		// firstTabWindowID = DriverFactory.getInstance().getDriver().getWindowHandle();
+		// System.out.println("Active tab window id is :" + firstTabWindowID);
+
+		// DriverFactory.getInstance().getDriver().switchTo().window(firstTabWindowID);
 	}
-	
 
 }

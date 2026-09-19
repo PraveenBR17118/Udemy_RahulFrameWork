@@ -21,14 +21,26 @@ public class BrowserFactory {
 			 * options.addArguments("--disable-dev-shm-usage");
 			 */
 			ChromeOptions options = new ChromeOptions();
+			boolean headless =
+			        Boolean.parseBoolean(
+			                System.getProperty("headless", "false")
+			        );
+			if (headless) {
 
-			options.addArguments("--headless=new");
-			options.addArguments("--no-sandbox");
-			options.addArguments("--disable-dev-shm-usage");
-			options.addArguments("--window-size=1920,1080");
+			    options.addArguments("--headless=new");
+			    options.addArguments("--no-sandbox");
+			    options.addArguments("--disable-dev-shm-usage");
+			    options.addArguments("--window-size=1920,1080");
+			}
+
+//			options.addArguments("--headless=new");
+//			options.addArguments("--no-sandbox");
+//			options.addArguments("--disable-dev-shm-usage");
+//			options.addArguments("--window-size=1920,1080");
 
 			//WebDriver driver = new ChromeDriver(options);
 			driver = new ChromeDriver(options);
+			//driver = new ChromeDriver();
 			driver.manage().window().maximize();
 		}
 
