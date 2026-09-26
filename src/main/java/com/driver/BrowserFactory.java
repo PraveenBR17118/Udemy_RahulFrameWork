@@ -26,6 +26,7 @@ public class BrowserFactory {
 			                System.getProperty("headless", "false")
 			        );
 			if (headless) {
+				options.setBinary("/usr/bin/google-chrome");
 
 			    options.addArguments("--headless=new");
 			    options.addArguments("--no-sandbox");
