@@ -8,7 +8,7 @@ on:
     types: [opened, synchronize, reopened]
 
 jobs:
-  selenium-tests:
+  Amazon-tests:
     runs-on: ubuntu-latest
 
     steps:
@@ -28,8 +28,8 @@ jobs:
           javac -version
           mvn -version
 
-      - name: Run Selenium Tests
-        run: mvn clean test -Dheadless=true
+      - name: Run Selenium-Amazon Tests
+        run: xvfb-run -a mvn clean test -Dheadless=false
 
       - name: Upload Test Results
         if: always()
