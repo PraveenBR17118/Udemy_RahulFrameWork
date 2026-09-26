@@ -19,6 +19,7 @@ public class AmazTest extends BaseTest
 		amz.enterSearchName(TestDataLoader.getInstance().getUserName());
 		amz.returnName(TestDataLoader.getInstance().getMobileName());
 		
+		
 	}
 	
 	@Test(priority = 2, dependsOnMethods = "serch_For_Mobiles")

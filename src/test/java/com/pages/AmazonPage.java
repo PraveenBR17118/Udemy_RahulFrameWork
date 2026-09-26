@@ -65,15 +65,17 @@ public class AmazonPage extends BasePage {
 
 	public AmazonPage() {
 		PageFactory.initElements(DriverFactory.getInstance().getDriver(), this);
-		commonFunctions = new CommonFunctions();
+		this.commonFunctions = new CommonFunctions();
 		this.explicitWaitActions = new ExplicitWaitActions();
 	}
 
 	public void enterSearchName(String userNameValue) {
 
 		super.sendKeys(serachTextBox, "user entered text box", userNameValue);
+		System.out.println("Mobile entered text box is " + userNameValue);
 
 		super.click(searchIcon, "Search  button");
+		System.out.println("Search Icon clicked ");
 
 	}
 
@@ -85,7 +87,8 @@ public class AmazonPage extends BasePage {
 		// a-spacing-small
 		// a-spacing-top-small']/descendant::h2/child::span[contains(text(),'Samsung')]"));
 
-		if (mobile.equals("Samsung")) {
+		if (mobile.equals("Samsung")) 
+		{
 			System.out.println("Mobile name is " + mobile);
 			mob = DriverFactory.getInstance().getDriver().findElements(By.xpath(
 					"//div[@class='a-section a-spacing-small a-spacing-top-small']/descendant::h2/child::span[contains(text(),'"
@@ -334,7 +337,7 @@ public class AmazonPage extends BasePage {
 
 		}
 
-		commonFunctions.closeTab();
+		this.commonFunctions.closeTab();
 
 		// firstTabWindowID = DriverFactory.getInstance().getDriver().getWindowHandle();
 		// System.out.println("Active tab window id is :" + firstTabWindowID);
