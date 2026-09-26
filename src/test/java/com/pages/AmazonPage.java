@@ -148,7 +148,7 @@ public class AmazonPage extends BasePage {
 	@SuppressWarnings("static-access")
 	public void clickOnMobile(String mobile) {
 		String[] stra;
-		System.out.println("Mobile name is " + mobile);
+		System.out.println("Mobile name is : " + mobile);
 
 		if (mobile.equals("Samsung")) {
 			mob = DriverFactory.getInstance().getDriver().findElements(By.xpath(
