@@ -29,7 +29,7 @@ jobs:
           mvn -version
 
       - name: Run Selenium Tests
-        run: mvn clean test -Dheadless=false
+        run: mvn clean test -Dheadless=true
 
       - name: Upload Test Results
         if: always()
