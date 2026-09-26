@@ -19,6 +19,7 @@ public class AmazTest extends BaseTest
 		amz.enterSearchName(TestDataLoader.getInstance().getUserName());
 		amz.returnName(TestDataLoader.getInstance().getMobileName());
 		
+		
 	}
 	
 	@Test(priority = 2, dependsOnMethods = "serch_For_Mobiles")
@@ -33,7 +34,7 @@ public class AmazTest extends BaseTest
 	public void vrifyCart()
 	{
 		AmazonPage amz = new AmazonPage();
-		amz.verifyCart();
+		amz.verifyCart(TestDataLoader.getInstance().getMobileName());
 		
 	}
 	
