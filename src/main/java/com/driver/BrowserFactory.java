@@ -44,13 +44,13 @@ public class BrowserFactory {
 			//WebDriver driver = new ChromeDriver(options);
 			driver = new ChromeDriver(options);
 			//driver = new ChromeDriver();
-			driver.manage().window().maximize();
+			//driver.manage().window().maximize();
 		}
 
 		else if (browserName.equalsIgnoreCase("Firefox")) 
 		{
 			driver = new FirefoxDriver();
-			driver.manage().window().maximize();
+			//driver.manage().window().maximize();
 		}
 
 		return driver;
