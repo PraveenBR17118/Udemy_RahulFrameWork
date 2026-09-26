@@ -1,0 +1,138 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2868
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\froman\fcharset0 Times-Roman;\f2\fnil\fcharset0 Menlo-Regular;
+\f3\fnil\fcharset0 HelveticaNeue;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red0\green0\blue0;}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c0;\csgray\c0;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww16640\viewh10020\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 Key pair name : Selenium_EC2\
+\
+Public IP\
+\pard\pardeftab720\partightenfactor0
+
+\f1\fs28 \cf0 \expnd0\expndtw0\kerning0
+3.27.26.108\
+\
+Private IP\
+172.31.38.166\
+\
+chmod 400 "Selenium_EC2.pem"\
+\
+\
+ssh -i "Selenium_EC2.pem" ubuntu@ec2-3-27-26-108.ap-southeast-2.compute.amazonaws.com\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f2\fs22 \cf3 \kerning1\expnd0\expndtw0 \CocoaLigature0  ssh -i "Selenium_EC2.pem" ubuntu@ec2-3-27-26-108.ap-southeast-2.compute.amazonaws.com\
+The authenticity of host 'ec2-3-27-26-108.ap-southeast-2.compute.amazonaws.com (3.27.26.108)' can't be established.\
+ED25519 key fingerprint is: SHA256:b3Tn7ttcpuaqyNvWemTvJU0O/lO49AghLNgwpyv/+TY\
+This key is not known by any other names.\
+Are you sure you want to continue connecting (yes/no/[fingerprint])? \
+\
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes\
+Warning: Permanently added 'ec2-3-27-26-108.ap-southeast-2.compute.amazonaws.com' (ED25519) to the list of known hosts.\
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\
+@         WARNING: UNPROTECTED PRIVATE KEY FILE!          @\
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\
+Permissions 0644 for 'Selenium_EC2.pem' are too open.\
+It is required that your private key files are NOT accessible by others.\
+This private key will be ignored.\
+Load key "Selenium_EC2.pem": bad permissions\
+ubuntu@ec2-3-27-26-108.ap-southeast-2.compute.amazonaws.com: Permission denied (publickey).\
+\
+ls -l Selenium_EC2.pem\
+\
+Result : file Selenium_EC2.pem\
+\
+head -n 1 Selenium_EC2.pem\
+\
+Result : -----BEGIN RSA PRIVATE KEY-----\
+\
+chmod 400 Selenium_EC2.pem\
+\
+ssh-keygen -y -f Selenium_EC2.pem\
+\
+Result : ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCffBA4rtlLNc//MKvVkiKGgED+1R8VN7UEvs+ejHeMUXtf2eySYRBHdyb0lRlKMcCCvszz7d7Y8klMSvDcUCqVoR8PzOU1CK1WtjEP/U4n6wE3y8P9bAwdflVHXLTlCVIa8rTIEFaB88xxJMoPj+vrK/rMcUPRFr74xO5mvZPNbOibt5uF6kbnMpqMl3d/eumfO9VwofzlSmd9evZP7AF7kZ7z2zf/48FmaUVg3mNHOx/p/ZpH1zZSDe8u3WB0Mr1Un4Ve8ZEn2xED6qBlOw7SdMzwm18Hyrqhb1wSwH7XUl4Ekd9IfbfqsAQLWSdCEMtLMU7vT3S/snbuhVaD5nxx\
+\
+\
+ssh -i Selenium_EC2.pem ubuntu@ec2-3-27-26-108.ap-southeast-2.compute.amazonaws.com\
+\
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<\
+\
+New Instance \
+\
+docker network create grid\
+\
+Result : d8190b06d1c206a859ffaf71a101b60276d32649b7282ca0c3cc7deb1dfcc088\
+\
+docker run -d -p 4442-4444:4442-4444 --net grid --name selenium-hub selenium/hub:4.29.0-20250303\
+\
+Result :\
+Unable to find image 'selenium/hub:4.29.0-20250303' locally\
+4.29.0-20250303: Pulling from selenium/hub\
+5b17151e9710: Pull complete \
+85284f4f4364: Pull complete \
+6af9b21bc7f8: Pull complete \
+27ac5a084cfa: Pull complete \
+f8e7fc7ca21f: Pull complete \
+95ea1f1b1750: Pull complete \
+51b3f27b673e: Pull complete \
+bbcd6c561a9b: Pull complete \
+8667377c8bcb: Pull complete \
+f68348c88d09: Pull complete \
+0c5eabc8bbf7: Pull complete \
+efa1edc74117: Pull complete \
+aa4f1568c51b: Pull complete \
+Digest: sha256:8a072f6f66067af3604276b1bc692547b7d38e718c8c74296572e54f35165c23\
+Status: Downloaded newer image for selenium/hub:4.29.0-20250303\
+f7523c8a905d6035a1e5856ba88278e4f1971b271b67a3065860430d563b6097\
+\
+docker run -d --net grid -e SE_EVENT_BUS_HOST=selenium-hub selenium/node-chrome:4.29.0-20250303\
+\
+docker run -d --net grid -e SE_EVENT_BUS_HOST=selenium-hub selenium/node-edge:4.29.0-20250303\
+\
+docker run -d --net grid -e SE_EVENT_BUS_HOST=selenium-hub \\\
+  --shm-size="2g" \\\
+  selenium/node-firefox:4.29.0-20250303\
+\
+\
+\
+\
+Public Ip Address :\
+\pard\pardeftab720\partightenfactor0
+
+\f1\fs28 \cf0 \expnd0\expndtw0\kerning0
+\CocoaLigature1 13.236.3.158\
+\
+\
+Private IP address :\
+172.31.24.134\
+\
+\
+chmod 400 "Selenium_EC2.pem"\
+\
+ssh -i "Selenium_EC2.pem" ubuntu@ec2-13-236-3-158.ap-southeast-2.compute.amazonaws.com\
+\
+\
+\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f3\fs22 \cf0 \kerning1\expnd0\expndtw0 - git clone <https://github.com/PraveenBR17118/Udemy_RahulFrameWork.git>\
+\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f2 \cf3 \CocoaLigature0 a35c36aa51a34e839fbe7fd3e850f850\
+Java version :\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+/usr/lib/jvm/java-21-openjdk-amd64/bin/java\
+\
+mvn version\
+/usr/bin/mvn\
+\
+\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+https://3.25.196.97:8080/}

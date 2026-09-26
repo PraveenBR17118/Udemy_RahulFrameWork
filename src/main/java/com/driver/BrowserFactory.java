@@ -25,7 +25,8 @@ public class BrowserFactory {
 			        Boolean.parseBoolean(
 			                System.getProperty("headless", "false")
 			        );
-			if (headless) {
+			if (headless)
+			{
 				options.setBinary("/usr/bin/google-chrome");
 
 			    options.addArguments("--headless=new");
