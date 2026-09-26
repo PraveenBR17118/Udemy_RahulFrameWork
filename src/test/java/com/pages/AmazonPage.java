@@ -155,7 +155,7 @@ public class AmazonPage extends BasePage {
 					"//div[@class='a-section a-spacing-small a-spacing-top-small']/descendant::h2/child::span[contains(text(),'"
 							+ mobile + "')]"));
 			System.out.println("Size of the mobile list is " + mob.size());
-			System.out.println("Waiting for mobile size to be displayed>>>>>>>>>>>>>>>");
+			System.out.println("Waiting for mobile size to be displayed>>>>>>>>>>>>>>>Test A<<<<<<<<<<<<<<<");
 
 			if (mob.size() > 0) {
 				for (int i = 0; i < mob.size(); i++) {
